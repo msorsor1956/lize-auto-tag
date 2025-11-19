@@ -1,0 +1,489 @@
+<!-- 
+This is the complete, single-file website for LIZE AUTO TAG.
+It is built as a Single Page Application (SPA) based on the provided design system.
+All navigation is handled by JavaScript to show/hide content sections.
+All styling is from Tailwind CSS and the brand's custom color palette.
+--><!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO Metadata (from Design System) --><title>LIZE AUTO TAG | Fast Tag & Registration in Darby, PA</title>
+    <meta name="description" content="LIZE AUTO TAG offers fast, reliable auto tag, title, registration, and notary services in Darby, PA. Visit us at 301 Macdade Boulevard.">
+
+    <!-- Tailwind CSS --><script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts (from Design System) --><link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+
+    <!-- Custom Styles (from Design System) --><style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0A1E3F;
+            color: #FFFFFF;
+        }
+        .font-exo {
+            font-family: 'Exo 2', sans-serif;
+        }
+        .font-inter {
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* ----- Brand UI Kit Components ----- */
+        .brand-button-primary {
+            background-color: #FF7A00;
+            color: #FFFFFF;
+            border-radius: 8px;
+            padding: 12px 24px;
+            font-family: 'Exo 2', sans-serif;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-block;
+            border: 2px solid #FF7A00;
+        }
+        .brand-button-primary:hover {
+            background-color: #FF8C24;
+            box-shadow: 0 0 15px #FF7A00;
+            transform: translateY(-2px);
+        }
+
+        .brand-button-secondary {
+            background-color: transparent;
+            color: #FFFFFF;
+            border: 2 contiguous.md:hover {
+            background-color: #FFFFFF;
+            color: #0A1E3F;
+            transform: translateY(-2px);
+        }
+
+        .brand-service-card {
+            background-color: #003C88;
+            border-radius: 12px;
+            border: 1px solid #032859;
+            padding: 24px;
+            box-shadow: 0 5px 15px #111111;
+            transition: all 0.3s ease;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        .brand-service-card:hover {
+            border-color: #FF7A00;
+            box-shadow: 0 0 20px rgba(255, 122, 0, 0.5);
+            transform: translateY(-5px);
+        }
+        
+        .brand-input-field {
+            background-color: #032859;
+            border: 1px solid #003C88;
+            border-radius: 8px;
+            padding: 12px;
+            color: #FFFFFF;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+        .brand-input-field::placeholder {
+            color: #aaa;
+        }
+        .brand-input-field:focus {
+            outline: none;
+            border-color: #FF7A00;
+            box-shadow: 0 0 5px #FF7A00;
+        }
+
+        /* ----- SPA Navigation ----- */
+        .nav-link {
+            font-family: 'Exo 2', sans-serif;
+            font-weight: 600;
+            color: #FFFFFF;
+            transition: all 0.3s ease;
+            padding: 4px 0;
+            border-bottom: 2px solid transparent;
+        }
+        .nav-link:hover, .nav-link.active {
+            color: #FF7A00;
+            border-bottom-color: #FF7A00;
+        }
+        
+        /* Main content section styling */
+        .content-section {
+            padding: 2rem 1rem;
+            min-height: 80vh;
+        }
+        @media (min-width: 768px) {
+            .content-section {
+                padding: 3rem 2rem;
+            }
+        }
+
+        /* Custom hero background */
+        .hero-bg {
+            /* Placeholder background with the brand's aesthetic */
+            background-image: linear-gradient(rgba(10, 30, 63, 0.8), rgba(10, 30, 63, 0.8)), url('https://placehold.co/1920x1080/0A1E3F/111111?text=Modern+Automotive');
+            background-size: cover;
+            background-position: center;
+        }
+
+        /* Accordion styles */
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+
+        /* Logo styling for responsiveness */
+        .header-logo {
+            height: 45px; /* Adjust as needed */
+            width: auto;
+        }
+        .footer-logo {
+            height: 60px; /* Larger for footer */
+            width: auto;
+        }
+        @media (max-width: 767px) {
+            .header-logo {
+                height: 35px; /* Smaller on mobile */
+            }
+        }
+    </style>
+</head>
+<body class="bg-[#0A1E3F] text-gray-100">
+
+    <!-- 
+      SECTION 1: HEADER & NAVIGATION 
+      (From Design System Section 2.1)
+    --><header class="bg-[#0A1E3F] shadow-lg sticky top-0 z-50 border-b border-[#032859]">
+        <nav class="container mx-auto flex justify-between items-center p-4">
+            <div>
+                <!-- Updated Logo for Header --><a href="#" data-target="page-home" class="nav-button">
+                    <img src="https://i.imghippo.com/files/VTl4000Hzw.png" alt="LIZE AUTO TAG Logo" class="header-logo">
+                </a>
+            </div>
+            
+            <!-- Desktop Navigation --><div class="hidden md:flex items-center space-x-6">
+                <a href="#" class="nav-link active" data-target="page-home">Home</a>
+                <a href="#" class="nav-link" data-target="page-about">About Us</a>
+                <a href="#" class="nav-link" data-target="page-services">Services</a>
+                <a href="#" class="nav-link" data-target="page-notary">Notary Services</a>
+                <a href="#" class="nav-link" data-target="page-resources">Resources</a>
+                <a href="#" class="nav-link" data-target="page-contact">Contact</a>
+                <button class="brand-button-primary nav-button" data-target="page-contact">Get Directions</button>
+            </div>
+            
+            <!-- Mobile Menu Button --><div class="md:hidden">
+                <button id="mobile-menu-btn" class="text-white focus:outline-none">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+        </nav>
+        
+        <!-- Mobile Menu (Dropdown) --><div id="mobile-menu" class="hidden md:hidden bg-[#032859] shadow-xl">
+            <a href="#" class="nav-link block text-center p-3 border-b border-[#0A1E3F]" data-target="page-home">Home</a>
+            <a href="#" class="nav-link block text-center p-3 border-b border-[#0A1E3F]" data-target="page-about">About Us</a>
+            <a href="#" class="nav-link block text-center p-3 border-b border-[#0A1E3F]" data-target="page-services">Services</a>
+            <a href="#" class="nav-link block text-center p-3 border-b border-[#0A1E3F]" data-target="page-notary">Notary Services</a>
+            <a href="#" class="nav-link block text-center p-3 border-b border-[#0A1E3F]" data-target="page-resources">Resources</a>
+            <a href="#" class="nav-link block text-center p-3" data-target="page-contact">Contact</a>
+            <div class="p-4">
+                <button class="brand-button-primary w-full nav-button" data-target="page-contact">Get Directions</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- 
+      SECTION 2: MAIN CONTENT WRAPPER
+      All "pages" are containers within this <main> tag.
+    --><main>
+
+        <!-- ============================================= --><!-- HOME PAGE (Section 2)                         --><!-- ============================================= --><div id="page-home" class="content-section p-0 m-0">
+            <!-- Hero Section (2.2) --><section class="hero-bg h-[70vh] md:h-[80vh] flex items-center justify-center text-center">
+                
+                <!-- YouTube Video Background (Removed) --><!-- Video Overlay (Removed) --><!-- Hero Content --><div class="container mx-auto px-4 z-10">
+                    <h1 class="text-4xl md:text-6xl font-exo font-bold text-white shadow-lg">Fast. Reliable. Professional.</h1>
+                    <h2 class="text-xl md:text-3xl font-inter text-gray-200 mt-4">Tag & Auto Registration Services in Darby, PA</h2>
+                    <div class="mt-8 space-x-4">
+                        <button class="brand-button-primary nav-button" data-target="page-services">View All Services</button>
+                        <button class="brand-button-secondary nav-button" data-target="page-contact">Contact Us Now</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 3 Key Features (Trust Bar) (2.3) --><section class="bg-[#032859] py-12">
+                <div class="container mx-auto px-4">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+                        <div class="flex flex-col items-center">
+                            <span class="text-5xl mb-3">⚡️</span>
+                            <h3 class="text-2xl font-exo font-semibold">Fast & Easy Process</h3>
+                            <p class="text-gray-300 mt-2">Our streamlined process gets you in and out quickly.</p>
+                        </div>
+                        <div class="flex flex-col items-center">
+                            <span class="text-5xl mb-3">🛡️</span>
+                            <h3 class="text-2xl font-exo font-semibold">PennDOT Authorized</h3>
+                            <p class="text-gray-300 mt-2">We are fully licensed and bonded for your peace of mind.</p>
+                        </div>
+                        <div class="flex flex-col items-center">
+                            <span class="text-5xl mb-3">✍️</span>
+                            <h3 class="text-2xl font-exo font-semibold">On-Site Notary</h3>
+                            <p class="text-gray-300 mt-2">Your one-stop-shop for all official documents.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Service Preview Grid (2.4) --><section class="py-16 bg-[#0A1E3F]">
+                <div class="container mx-auto px-4">
+                    <h2 class="text-3xl md:text-4xl font-exo font-bold text-center mb-10">Our Core Services</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                        <!-- Service Card 1 --><div class="brand-service-card">
+                            <h3 class="text-2xl font-exo font-semibold mb-3">Vehicle Registration</h3>
+                            <p class="text-gray-300 mb-4 flex-grow">Instant new registrations and renewals for your car, truck, or motorcycle. Walk out with your new registration card and sticker today.</p>
+                            <button class="brand-button-secondary nav-button w-full" data-target="page-services">Learn More</button>
+                        </div>
+                        <!-- Service Card 2 --><div class="brand-service-card">
+                            <h3 class="text-2xl font-exo font-semibold mb-3">Tags & Title Services</h3>
+                            <p class="text-gray-300 mb-4 flex-grow">Fast title transfers, duplicate titles, and new license plate issuance.</p>
+                            <button class="brand-button-secondary nav-button w-full" data-target="page-services">Learn More</button>
+                        </div>
+                        <!-- Service Card 3 --><div class="brand-service-card">
+                            <h3 class="text-2xl font-exo font-semibold mb-3">Renewals</h3>
+                            <p class="text-gray-300 mb-4 flex-grow">Don't wait for the mail. Renew your vehicle or driver's license instantly.</p>
+                            <button class="brand-button-secondary nav-button w-full" data-target="page-services">Learn More</button>
+                        </div>
+                        <!-- Service Card 4 --><div class="brand-service-card">
+                            <h3 class="text-2xl font-exo font-semibold mb-3">Notary Services</h3>
+                            <p class="text-gray-300 mb-4 flex-grow">Certified on-site notary for auto titles, legal documents, and more.</p>
+                            <button class="brand-button-secondary nav-button w-full" data-target="page-notary">Learn More</button>
+                        </div>
+                    </div>
+                    <div class="text-center mt-12">
+                        <button class="brand-button-primary nav-button" data-target="page-services">View All Our Services</button>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Testimonials (2.5) --><section class="py-16 bg-[#032859]">
+                <div class="container mx-auto px-4">
+                    <h2 class="text-3xl md:text-4xl font-exo font-bold text-center mb-10">What Our Customers Say</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <!-- Testimonial 1 --><div class="bg-[#003C88] p-6 rounded-lg shadow-lg border border-[#032859]">
+                            <div class="text-2xl text-[#FF7A00]">★★★★★</div>
+                            <p class="text-gray-200 italic mt-3">"Incredibly fast and professional. I was in and out with my new title in 10 minutes. Will never go to the DMV again!"</p>
+                            <p class="font-exo font-semibold text-white mt-4">- Michael S.</p>
+                        </div>
+                        <!-- Testimonial 2 --><div class="bg-[#003C88] p-6 rounded-lg shadow-lg border border-[#032859]">
+                            <div class="text-2xl text-[#FF7A00]">★★★★★</div>
+                            <p class="text-gray-200 italic mt-3">"The staff at LIZE AUTO TAG are so helpful and knowledgeable. They answered all my questions about moving from out of state."</p>
+                            <p class="font-exo font-semibold text-white mt-4">- Jennifer L.</p>
+                        </div>
+                        <!-- Testimonial 3 --><div class="bg-[#003C88] p-6 rounded-lg shadow-lg border border-[#032859]">
+                            <div class="text-2xl text-[#FF7A00]">★★★★★</div>
+                            <p class="text-gray-200 italic mt-3">"Needed a document notarized quickly and they handled it right away. Very friendly and efficient. Highly recommend."</p>
+                            <p class="font-exo font-semibold text-white mt-4">- David R.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Location & Hours Callout (2.6) --><section class="py-16 bg-[#FF7A00] text-[#0A1E3F]">
+                <div class="container mx-auto px-4 text-center">
+                    <h2 class="text-3xl md:text-4xl font-exo font-bold mb-4">Visit Us Today in Darby!</h2>
+                    <p class="text-xl font-semibold">301 Macdade Boulevard, Darby PA 19023</p>
+                    <p class="text-lg font-semibold mt-2">Mon-Fri: 9am-6pm  |  Sat: 10am-2pm</p>
+                    <div class="mt-8 space-x-4">
+                        <button class="brand-button-primary nav-button" data-target="page-contact" style="background-color: #0A1E3F; color: #FFFFFF; border-color: #0A1E3F;">Get Directions</button>
+                        <a href="tel:445-235-7604" class="brand-button-secondary" style="border-color: #0A1E3F; color: #0A1E3F;">Call: 445-235-7604</a>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- ============================================= --><!-- ABOUT US PAGE (Section 3)                       --><!-- ============================================= --><div id="page-about" class="content-section container mx-auto hidden">
+            <h1 class="text-3xl md:text-5xl font-exo font-bold text-center mb-10">Your Trusted Partner in Auto & Notary Services</h1>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+                <!-- Image Placeholder --><div class="bg-gray-700 rounded-lg h-80 flex items-center justify-center">
+                    <p class="text-gray-400 font-exo text-2xl">Professional Office Interior</p>
+                </div>
+                
+                <div class="space-y-4">
+                    <h2 class="text-3xl font-exo font-semibold text-[#FF7A00]">Our Story</h2>
+                    <p class="text-lg text-gray-200">
+                        LIZE AUTO TAG was founded with a simple mission: to provide a modern, customer-focused alternative to the traditional DMV. We saw a need for a reliable, fast, and friendly tag agency in the Darby community, and we built our business around those core values.
+                    </p>
+                    <p class="text-lg text-gray-200">
+                        Our team is your team. We're trained experts who live in this community and are dedicated to making your life easier, one transaction at a time.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-16 text-center">
+                <div class="bg-[#032859] p-6 rounded-lg shadow-lg">
+                    <h3 class="text-2xl font-exo font-semibold text-[#FF7A00]">Our Mission</h3>
+                    <p class="mt-2 text-gray-300">To provide the fastest, most reliable, and professional auto tag and notary services in Delaware County, ensuring every customer leaves satisfied.</p>
+                </div>
+                <div class="bg-[#032859] p-6 rounded-lg shadow-lg">
+                    <h3 class="text-2xl font-exo font-semibold text-[#FF7A00]">Our Values</h3>
+                    <ul class="mt-2 text-gray-300 space-y-1">
+                        <li><strong>Speed</strong></li>
+                        <li><strong>Accuracy</strong></li>
+                        <li><strong>Professionalism</strong></li>
+                    </ul>
+                </div>
+                <div class="bg-[#032859] p-6 rounded-lg shadow-lg">
+                    <h3 class="text-2xl font-exo font-semibold text-[#FF7A00]">Why Choose Us?</h3>
+                    <ul class="mt-2 text-gray-300 space-y-1">
+                        <li>Expert, Certified Team</li>
+                        <li>One-Stop-Shop for Auto & Notary</li>
+                        <li>Community-Focused Service</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Brand Credibility Blocks (3.5) --><div class="mt-16 bg-[#032859] rounded-lg p-8">
+                <h3 class="text-2xl font-exo font-semibold text-center mb-6">Fully Licensed, Bonded, and Authorized</h3>
+                <div class="flex flex-wrap justify-center gap-8 md:gap-12">
+                    <div class="text-center">
+                        <p class="text-4xl">🛡️</p>
+                        <p class="font-exo font-semibold mt-2">PennDOT Authorized Agent</p>
+                    </div>
+                    <div class="text-center">
+                        <p class="text-4xl">✍️</p>
+                        <p class="font-exo font-semibold mt-2">Certified Notary Public</p>
+                    </div>
+                    <div class="text-center">
+                        <p class="text-4xl">🔒</p>
+                        <p class="font-exo font-semibold mt-2">Fully Insured & Bonded</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CTA Area (3.6) --><div class="text-center mt-16">
+                <h2 class="text-3xl font-exo font-semibold">Ready to get started?</h2>
+                <p class="text-lg text-gray-300 mt-2">Let our team handle the hassle for you.</p>
+                <div class="mt-8 space-x-4">
+                    <button class="brand-button-primary nav-button" data-target="page-services">View Our Services</button>
+                    <button class="brand-button-secondary nav-button" data-target="page-contact">Contact Us</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================= --><!-- SERVICES PAGE (Section 4)                     --><!-- ============================================= --><div id="page-services" class="content-section container mx-auto hidden">
+            <h1 class="text-3xl md:text-5xl font-exo font-bold text-center mb-10">Auto Tag & Registration Services</h1>
+            <p class="text-lg text-gray-300 text-center max-w-3xl mx-auto mb-12">
+                We are a full-service, PennDOT-authorized agency. We handle all your vehicle and driver's license needs instantly, saving you time and hassle.
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Card 1 --><div class="brand-service-card">
+                    <h3 class="text-2xl font-exo font-semibold mb-3">Vehicle Registration</h3>
+                    <p class="text-gray-300 mb-4 flex-grow">Instant new registrations and renewals for your car, truck, or motorcycle. Walk out with your new registration card and sticker today.</p>
+                    <button class="brand-button-secondary nav-button w-full mt-auto" data-target="page-contact">Get Started</button>
+                </div>
+                <!-- Card 2 --><div class="brand-service-card">
+                    <h3 class="text-2xl font-exo font-semibold mb-3">Tags & Title Services</h3>
+                    <p class="text-gray-300 mb-4 flex-grow">Fast title transfers, duplicate titles, and new license plate issuance.</p>
+                    <button class="brand-button-secondary nav-button w-full mt-auto" data-target="page-contact">Get Started</button>
+                </div>
+                <!-- Card 3 --><div class="brand-service-card">
+                    <h3 class="text-2xl font-exo font-semibold mb-3">License Plate Transfer</h3>
+                    <p class="text-gray-300 mb-4 flex-grow">Bought a new car? We can legally transfer your current license plate to your new vehicle in minutes.</p>
+                    <button class="brand-button-secondary nav-button w-full mt-auto" data-target="page-contact">Get Started</button>
+                </div>
+                <!-- Card 4 --><div class="brand-service-card">
+                    <h3 class="text-2xl font-exo font-semibold mb-3">Instant Renewals</h3>
+                    <p class="text-gray-300 mb-4 flex-grow">Don't risk a ticket—get your new vehicle sticker or driver's license instantly.</p>
+                    <button class="brand-button-secondary nav-button w-full mt-auto" data-target="page-contact">Get Started</button>
+                </div>
+                <!-- Card 5 --><div class="brand-service-card">
+                    <h3 class="text-2xl font-exo font-semibold mb-3">Insurance Services</h3>
+                    <p class="text-gray-300 mb-4 flex-grow">We can help you find and bind auto insurance policies on the spot, ensuring you're legally covered before you drive.</p>
+                    <button class="brand-button-secondary nav-button w-full mt-auto" data-target="page-contact">Get Started</button>
+                </div>
+                <!-- Card 6 --><div class="brand-service-card">
+                    <h3 class="text-2xl font-exo font-semibold mb-3">Business Fleet Services</h3>
+                    <p class="text-gray-300 mb-4 flex-grow">We manage registration and title work for business fleets, keeping your company vehicles on the road and compliant.</p>
+                    <button class="brand-button-secondary nav-button w-full mt-auto" data-target="page-contact">Get Started</button>
+                </div>
+                <!-- Card 7 --><div class="brand-service-card">
+                    <h3 class="text-2xl font-exo font-semibold mb-3">Online Document Help</h3>
+                    <p class="text-gray-300 mb-4 flex-grow">Confused by PennDOT forms? We assist with all online and paper forms, ensuring accuracy and avoiding rejection.</p>
+                    <button class="brand-button-secondary nav-button w-full mt-auto" data-target="page-contact">Get Started</button>
+                </div>
+                <!-- Card 8 --><div class="brand-service-card">
+                    <h3 class="text-2xl font-exo font-semibold mb-3">Duplicate Titles & Cards</h3>
+                    <p class="text-gray-300 mb-4 flex-grow">Lost your title, registration card, or driver's license? We can order an official duplicate for you.</p>
+                    <button class="brand-button-secondary nav-button w-full mt-auto" data-target="page-contact">Get Started</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================= --><!-- NOTARY PAGE (Section 5)                       --><!-- ============================================= --><div id="page-notary" class="content-section container mx-auto hidden">
+            <h1 class="text-3xl md:text-5xl font-exo font-bold text-center mb-10">Professional Notary Services</h1>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                <!-- Left Column --><div class="space-y-6">
+                    <h2 class="text-3xl font-exo font-semibold text-[#FF7A00]">Fast, Accurate, & Certified</h2>
+                    <p class="text-lg text-gray-200">
+                        Our certified, insured, and bonded Notaries Public are on-site and ready to assist you. We provide professional notary services for all your important documents.
+                    </p>
+                    <h3 class="text-2xl font-exo font-semibold">Our Notary Services Include:</h3>
+                    <ul class="list-disc list-inside text-gray-300 space-y-2">
+                        <li>Auto Title Documents</li>
+                        <li>Power of Attorney</li>
+                        <li>Affidavits & Oaths</li>
+                        <li>Deeds & Mortgages</li>
+                        <li>Legal & Financial Documents</li>
+                        <li>And much more...</li>
+                    </ul>
+                    
+                    <h3 class="text-2xl font-exo font-semibold mt-4">Pricing</h3>
+                    <p class="text-lg text-gray-200">
+                        We offer competitive, per-signature pricing as set by the Commonwealth of Pennsylvania. Please call for an exact quote.
+                    </p>
+                </div>
+                
+                <!-- Right Column (Unmissable Block) --><div class="bg-[#032859] p-6 md:p-8 rounded-lg shadow-lg border-2 border-[#FF7A00]">
+                    <h2 class="text-3xl font-exo font-semibold mb-6">What to Bring</h2>
+                    <p class="text-lg text-gray-200 mb-6">To ensure a smooth process, please bring the following:</p>
+                    <ul class="space-y-4">
+                        <li class="flex items-start">
+                            <span class="text-3xl mr-4">🆔</span>
+                            <div>
+                                <h4 class="font-exo font-semibold text-xl">A Valid, Government-Issued Photo ID</h4>
+                                <p class="text-gray-300">(e.g., Driver's License, Passport, State ID)</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-3xl mr-4">📄</span>
+                            <div>
+                                <h4 class="font-exo font-semibold text-xl">The Complete Document(s)</h4>
+                                <p class="text-gray-300">Ensure all pages are present and in order.</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-3xl mr-4">⚠️</span>
+                            <div>
+                                <h4 class="font-exo font-semibold text-xl text-[#FF8C24]">DO NOT SIGN The Document</h4>
+                                <p class="text-gray-300">You must sign the document in the physical presence of the Notary.</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- CTA Area (5.5) --><div class="text-center mt-16 bg-[#032859] p-8 rounded-lg">
+                <h2 class="text-3xl font-exo font-semibold">Ready to Notarize?</h2>
+                <p class="text-lg text-gray-300 mt-2">Walk-ins are welcome, but appointments are recommended.</p>
+                <div class="mt-8">
+                    <a href="tel:445-235-7604" class="brand-button-primary">Call to Schedule: 445-235-7604</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================= --><!-- RESOURCES PAGE (Section 6)                    --><!-- ============================================= --><div id="page-resources" class="content-section container mx-auto hidden">
+            <h1 class="text-3xl md:text-5xl font-exo font-bold text-center mb-10">Resources & FAQ</h1>
+            <p class="text-lg text-gray-300 text
